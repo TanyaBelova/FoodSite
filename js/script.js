@@ -109,18 +109,24 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
         modalBtns.forEach((element, i) => {
-            element.addEventListener('click', ()=>{
-                // modalForData.style.display = 'block';
-                modalForData.classList.add('show');
-                modalForData.classList.remove('hide');
-                document.body.style.overflow = 'hidden';
-            });
+            // element.addEventListener('click', ()=>{
+            //     // modalForData.style.display = 'block';
+               
+            // });
+            element.addEventListener('click', showModal);
         });
 
     function closeModal(){
         modalForData.classList.remove('show');
         modalForData.classList.add('hide');
         document.body.style.overflow = '';
+    }
+
+    function showModal(){
+        modalForData.classList.add('show');
+        modalForData.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
+        clearTimeout(modalTimerId);
     }
 
         // btnClose.addEventListener('click', ()=>{
@@ -130,7 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
         btnClose.addEventListener('click', closeModal);
 
         modalForData.addEventListener('click', (e)=>{
-            if(e.target === modalForData){
+            if(e.target === modalForData && modalForData.classList.contains('show')){
                 closeModal();
             }
         });
@@ -141,4 +147,14 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        const modalTimerId = setTimeout(showModal, 5000);
+
+        function showModalByScroll() {
+            if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight){
+                showModal();
+                window.removeEventListener('scroll', showModalByScroll);
+            }
+        }
+
+        window.addEventListener('scroll', showModalByScroll);
 });
