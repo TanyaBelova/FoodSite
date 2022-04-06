@@ -45,7 +45,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         //Timer
 
-        const deadline = '2021-12-01T00:00';
+        const deadline = '2022-06-15T00:00';
         console.log(deadline);
 
         function getTimeRemaining(endtime){
