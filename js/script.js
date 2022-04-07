@@ -257,30 +257,60 @@ window.addEventListener('DOMContentLoaded', () => {
                 `;
                 form.insertAdjacentElement('afterend', statusMessage);
 
-                const request = new XMLHttpRequest();
-                request.open('POST', 'server.php');
-                request.setRequestHeader('Content-type', 'application/json');
-
                 const formData = new FormData(form);
                 const object = {};
                 formData.forEach((value, key)=>{
                     object[key] = value;
                 });
-                
-                const json = JSON.stringify(object);
 
-                request.send(json);
-
-                request.addEventListener('load', ()=>{
-                    if(request.status === 200){
-                        console.log(request.response);
+                fetch('server.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(object)
+                })
+                .then(responce => responce.text())
+                .then(responce => {
+                        console.log(responce);
                         showThanksModal(message.success);
-                        form.reset();
                         statusMessage.remove();
-                    }else{
+                    }).catch(()=>{
                         showThanksModal(message.failure);
-                    }
-                });
+                    }).finally(()=> {
+                        form.reset();
+                    });
+                
+
+                // fetch('server.php', {
+                //     method: 'POST',
+                //     // headers: {
+                //     //     'Content-type': 'application/json'
+                //     // },
+                //     body: formData
+                // })
+                // .then(responce => responce.text())
+                // .then(responce => {
+                //         console.log(responce);
+                //         showThanksModal(message.success);
+                //         statusMessage.remove();
+                //     }).catch(()=>{
+                //         showThanksModal(message.failure)
+                //     }).finally(()=> {
+                //         form.reset();
+                //     });
+                
+
+                // request.addEventListener('load', ()=>{
+                //     if(request.status === 200){
+                //         console.log(request.response);
+                //         showThanksModal(message.success);
+                //         form.reset();
+                //         statusMessage.remove();
+                //     }else{
+                //         showThanksModal(message.failure);
+                //     }
+                // });
             });
         }
 
@@ -307,4 +337,5 @@ window.addEventListener('DOMContentLoaded', () => {
                 closeModal();
             }, 4000);
         }
+
 });
