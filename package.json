@@ -1,0 +1,22 @@
+{
+  "name": "fooddist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TanyaBelova/FoodSite.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TanyaBelova/FoodSite/issues"
+  },
+  "homepage": "https://github.com/TanyaBelova/FoodSite#readme",
+  "devDependencies": {
+    "json-server": "^0.17.0"
+  }
+}
